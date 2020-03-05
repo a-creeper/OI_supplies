@@ -12,12 +12,12 @@ type priority_queue=object
                         procedure top;
                         function empty:boolean;
                       end;
-procedure priority_queue.init(a:boolean);
+procedure priority_queue.init(a:boolean);inline;
 begin
-  setlength(main,1);
+  setlength(main,0);
   size:=0;mode:=a;
 end;
-procedure priority_queue.push(a:longint);
+procedure priority_queue.push(a:longint);inline;
 var x,t:longint;
 begin
   inc(size);
@@ -35,11 +35,11 @@ begin
     else
       break;
 end;
-function priority_queue.pop:longint;
+function priority_queue.pop:longint;inline;
 begin
   exit(main[1]);
 end;
-procedure priority_queue.top;
+procedure priority_queue.top;inline;
 var t,x:longint;
 begin
   t:=main[1];
@@ -71,7 +71,23 @@ begin
     t:=main[x];main[x]:=main[x<<1];main[x<<1]:=t;
   end;
 end;
-function priority_queue.empty:boolean;
+function priority_queue.empty:boolean;inline;
 begin
   exit(size<>0);
 end;
+var a:priority_queue;
+    n,x,y:longint;
+begin
+  a.init(small_root_priority_queue);
+  readln(n);
+  for n:=1 to n do
+  begin
+    read(x);
+    if x=1 then read(y);
+    case x of
+      1:a.push(y);
+      2:writeln(a.pop);
+      3:a.top;
+    end;
+  end;
+end.
